@@ -1,2 +1,101 @@
-# UltraVideoPeak
-Cross-platform tool to push video quality to absolute peak (upscale to Ultra 4K, high FPS interpolation up to 240fps where possible). Strains device to max. Falls back with advice to rent virtual/cloud GPU computers. Supports Linux, Termux, a-shell, Windows CLI + Web App.
+# UltraVideoPeak 🚀
+
+**Push any video to its absolute quality peak** — upscale to Ultra 4K (3840×2160), interpolate to high frame rates (60 / 120 / 240 fps where hardware allows), and use the most aggressive FFmpeg quality settings possible.
+
+This tool **strains your device to the maximum** (all CPU cores, highest quality presets, Lanczos scaling, motion interpolation).  
+If the job is too heavy for the current device, it clearly tells you to rent a **virtual / cloud GPU computer**.
+
+### Supported Platforms
+| Platform          | How to run                          |
+|-------------------|-------------------------------------|
+| **Linux**         | `./peak_video.sh` or Python         |
+| **Termux** (Android) | Same bash + Termux FFmpeg        |
+| **a-shell** (iOS) | Bash script (limited by device)     |
+| **Windows**       | `.bat` / PowerShell / WSL / Git Bash |
+| **Any browser**   | Web App (ffmpeg.wasm – limited size)|
+| **Cloud / VPS**   | Same CLI (recommended for 4K@120+)  |
+
+---
+
+## ⚠️ Reality Check
+- **True 4K @ 240 fps** is extremely demanding. Most phones, tablets and even mid-range PCs will struggle or take hours.
+- FFmpeg’s `minterpolate` can target 240 fps, but quality and speed depend heavily on your CPU/GPU.
+- Browser (Web App) version is limited by RAM (~100-200 MB videos recommended). For long or 4K source videos → use CLI on a powerful machine or cloud.
+
+**Recommended for heavy jobs:**
+- [RunPod](https://runpod.io)
+- [Vast.ai](https://vast.ai)
+- [Lambda Labs](https://lambdalabs.com)
+- [Paperspace](https://www.paperspace.com)
+- Any NVIDIA GPU cloud instance (RTX 3090 / 4090 / A100 etc.)
+
+---
+
+## Quick Start
+
+### 1. Install FFmpeg
+```bash
+# Linux / Termux
+pkg install ffmpeg          # Termux
+sudo apt install ffmpeg     # Ubuntu/Debian
+# Windows: download from https://ffmpeg.org or use winget/choco
+# a-shell: usually has ffmpeg or install via pkg
+```
+
+### 2. Clone & Run
+```bash
+git clone https://github.com/Paradoxdreamer/UltraVideoPeak.git
+cd UltraVideoPeak
+chmod +x cli/peak_video.sh
+./cli/peak_video.sh input.mp4
+```
+
+### Common options
+```bash
+./cli/peak_video.sh input.mp4 --fps 120 --crf 14 --preset veryslow
+./cli/peak_video.sh input.mp4 --4k --fps 60 --out peak_output.mp4
+./cli/peak_video.sh input.mp4 --max   # absolute peak (very slow)
+```
+
+---
+
+## Web App
+Open `web/index.html` in any modern browser (or host it on GitHub Pages).
+
+- Drag & drop video
+- Choose target FPS & quality
+- Process in-browser (privacy-friendly, no upload)
+- Large files → tool will warn and recommend cloud
+
+Live demo (after you enable GitHub Pages):  
+`https://paradoxdreamer.github.io/UltraVideoPeak/`
+
+---
+
+## Project Structure
+```
+UltraVideoPeak/
+├── cli/
+│   ├── peak_video.sh      # Main cross-platform bash tool
+│   ├── peak_video.bat     # Windows helper
+│   └── peak_video.py      # Python version (better detection)
+├── web/
+│   ├── index.html
+│   ├── app.js
+│   └── style.css
+├── scripts/
+│   └── install.sh
+├── docs/
+│   └── CLOUD.md           # How to rent a virtual computer
+└── README.md
+```
+
+---
+
+## License
+MIT – free for personal and commercial use.
+
+---
+
+**Made for users who want the absolute maximum quality the hardware can deliver.**  
+If your device can’t handle it → rent a virtual supercomputer. That’s the honest path to Ultra 4K @ 240 fps.
